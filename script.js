@@ -6,7 +6,7 @@ $.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 	.then(function(data, status, xhr) {
 		console.log(status);
 		console.log('success (promises): ' + data.name);
-		generateUrl(makeArrayOfObj(data));
+		generatePics(generateUrl(makeArrayOfObj(data)));
 }, function(xhr, status, error) {
 	console.log('failed (promises): ' + error);
 });
@@ -43,6 +43,11 @@ function generateUrl(arrayOfObj) {
 		picObj.photo + '_'+ picObj.secret +'_q.jpg';
 		urlArray.push(picUrl);
 	});
-	console.log(urlArray);
+	return urlArray;
 }
 
+function generatePics(urlArray) {
+	urlArray.forEach(function(url) {
+		$('body').append('<img src="' + url + '"/>');
+	});
+}
