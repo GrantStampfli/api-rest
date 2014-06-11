@@ -5,7 +5,7 @@ var url = 'https://api.flickr.com/services/rest/?' +
 $.ajax(url, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 	.then(function(data, status, xhr) {
 		console.log(status);
-		console.log('success (promises): ' + data.name);
+		console.log('success (promises): ' + data.photos);
 }, function(xhr, status, error) {
 	console.log('failed (promises): ' + error);
 });
