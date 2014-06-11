@@ -12,7 +12,7 @@ $.ajax(url, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 	console.log('failed (promises): ' + error);
 });
 
-// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+/* Flickr getting data from API and Displaying */
 var list = [];
 function jsonFlickrApi(jsonData) {
 
