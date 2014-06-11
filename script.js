@@ -16,7 +16,7 @@ $.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 var makeArrayOfObj = function(jsonData) {
 	var list = [];
 	var items = jsonData.photos.photo;
-	for (var i = 0; i < 40; i++) {
+	for (var i = 0; i < items.length; i++) {
 		var title = '(untitled)';
 		if (items[i].title !== '') {
 			title = items[i].title;
@@ -30,7 +30,7 @@ var makeArrayOfObj = function(jsonData) {
 			title: title
 
 		});
-		// console.log(list);
+
 	}
 	return list;
 };
