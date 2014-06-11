@@ -28,10 +28,10 @@ $(window).scroll(function() {
     }
 });
 
-var makeArrayOfObj = function(jsonData, numOfPhotos) {
+var makeArrayOfObj = function(jsonData) {
 	var list = [];
 	var items = jsonData.photos.photo;
-	for (var i = 0; i < numOfPhotos; i++) {
+	for (var i = 0; i < items.length; i++) {
 		var title = '(untitled)';
 		if (items[i].title !== '') {
 			title = items[i].title;
@@ -61,8 +61,14 @@ function generateUrl(arrayOfObj) {
 	return urlArray;
 }
 
-function generatePics(urlArray) {
-	urlArray.forEach(function(url) {
+function generatePics(urlArray, numOfPhotos) {
+
+	var leftOvers = urlArray.length - numOfPhotos;
+	var i = 0;
+	urlArray.forEach(function(url, cb) {
 		$('body').append('<img src="' + url + '"/>');
+		i = i + 1;
+		if (i === numOfPhotos) { cb(); }
+
 	});
 }
