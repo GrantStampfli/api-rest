@@ -3,11 +3,12 @@ var flickrUrl = 'https://api.flickr.com/services/rest/?' +
 'method=flickr.interestingness.getList&' +
 'api_key=' + key + '&format=json';
 var x = 40;
+var y = 0;
 $.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 	.then(function(data, status, xhr) {
 		console.log(status);
 		console.log('success (promises): ' + data.name);
-		generatePics(generateUrl(makeArrayOfObj(data, x)));
+		generatePics(generateUrl(makeArrayOfObj(data, x, y)));
 }, function(xhr, status, error) {
 	console.log('failed (promises): ' + error);
 });
@@ -16,22 +17,23 @@ $.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 
 $(window).scroll(function() {
     if($(window).scrollTop() === $(document).height() - $(window).height()) {
-    	x = x+40;
+    	x = x + 40;
+    	y = y + 40;
 			$.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 				.then(function(data, status, xhr) {
 					console.log(status);
 					console.log('success (promises): ' + data.name);
-					generatePics(generateUrl(makeArrayOfObj(data, x)));
+					generatePics(generateUrl(makeArrayOfObj(data, x, y)));
 			}, function(xhr, status, error) {
 				console.log('failed (promises): ' + error);
 			});
     }
 });
 
-var makeArrayOfObj = function(jsonData, numOfPhotos) {
+var makeArrayOfObj = function(jsonData, numOfPhotos, startPhoto) {
 	var list = [];
 	var items = jsonData.photos.photo;
-	for (var i = 0; i < numOfPhotos; i++) {
+	for (var i = startPhoto; i < numOfPhotos; i++) {
 		var title = '(untitled)';
 		if (items[i].title !== '') {
 			title = items[i].title;
