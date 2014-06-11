@@ -40,7 +40,7 @@ function generateUrl(arrayOfObj) {
 	arrayOfObj.forEach(function(picObj){
 		var picUrl = 'https://farm' + picObj.farm +
 		'.staticflickr.com/' + picObj.server + '/' +
-		picObj.photo.id + '_'+ picObj.secret +'.jpg';
+		picObj.photo + '_'+ picObj.secret +'.jpg';
 		urlArray.push(picUrl);
 	});
 	console.log(urlArray);
