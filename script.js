@@ -1,7 +1,7 @@
-var url = 'https://api.flickr.com/services/rest/?' + 
-'method=flickr.interestingness.getList&' + 
-'api_key=72ba71f6b1a5511c33d79e03be3ff7b7&' + 
-'format=json';
+var key = '72ba71f6b1a5511c33d79e03be3ff7b7';
+var url = 'https://api.flickr.com/services/rest/?' +
+'method=flickr.interestingness.getList&' +
+'api_key=' + key + '&format=json';
 $.ajax(url, { dataType: 'jsonp', jsonp: 'jsoncallback' })
 	.then(function(data, status, xhr) {
 		console.log(status);
@@ -20,7 +20,7 @@ function jsonFlickrApi(jsonData) {
 
 	for (var i = 0; i < 40; i++) {
 		var title = '(untitled)';
-		if(items[i].title != ''){
+		if (items[i].title != '') {
 			title = items[i].title;
 		}
 		list.push ({
