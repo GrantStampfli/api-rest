@@ -1,4 +1,4 @@
-(function() {
+$(document).ready(function() {
   'use strict';
   var app = (function(){
 
@@ -79,6 +79,6 @@
 
   });
 
-  $(app.run);
+  $(app());
 
 })();
