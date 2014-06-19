@@ -3,29 +3,43 @@ $(document).ready(function() {
   var app = (function(){
 
 		var key = '72ba71f6b1a5511c33d79e03be3ff7b7';
-		var flickrUrl = 'https://api.flickr.com/services/rest/?' +
-		'method=flickr.interestingness.getList&' +
-		'api_key=' + key + '&format=json';
+		var flickrUrl = 'https://api.flickr.com/services/rest/';
+		var param = {
+			method: 'flickr.interestingness.getList',
+			api_key: '72ba71f6b1a5511c33d79e03be3ff7b7',
+			format: 'json',
+			per_page: 90,
+			page: 1
+		};
 		var x = 40;
-		$.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
+		$.ajax(flickrUrl, { data:param, dataType: 'jsonp', jsonp: 'jsoncallback' })
 			.then(function(data, status, xhr) {
 				console.log(status);
-				console.log('success (promises): ' + data.name);
+				console.log('success (promises): ' + data);
+				console.log(data.photos.page);
 				generatePics(generateUrl(makeArrayOfObj(data, x)));
 		}, function(xhr, status, error) {
 			console.log('failed (promises): ' + error);
 		});
 
 		/* Flickr getting data from API and Displaying */
-
+		var counter = 2;
 		$(window).scroll(function() {
 		    if($(window).scrollTop() === $(document).height() - $(window).height()) {
-		    	x = x+40;
-					$.ajax(flickrUrl, { dataType: 'jsonp', jsonp: 'jsoncallback' })
+
+		    		var newParam = {
+						method: 'flickr.interestingness.getList',
+						api_key: '72ba71f6b1a5511c33d79e03be3ff7b7',
+						format: 'json',
+						per_page: 40,
+						page: counter
+					};
+					$.ajax(flickrUrl, { data:newParam, dataType: 'jsonp', jsonp: 'jsoncallback' })
 						.then(function(data, status, xhr) {
 							console.log(status);
 							console.log('success (promises): ' + data.name);
 							generatePics(generateUrl(makeArrayOfObj(data, x)));
+							counter = counter + 1;
 					}, function(xhr, status, error) {
 						console.log('failed (promises): ' + error);
 					});
